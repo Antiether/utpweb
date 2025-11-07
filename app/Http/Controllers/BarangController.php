@@ -14,22 +14,24 @@ class BarangController extends Controller
 
     public function index()
     {
+        $user = auth()->user();
         $barangs = Barang::all();
-        return view('barang.index', compact('barangs'));
+
+        return view('barang.index', compact('barangs', 'user'));
     }
 
     public function create()
     {
-    if (auth()->user()->role !== 'admin') {
-        abort(403, 'Hanya admin yang bisa menambah barang!');
+        if (auth()->user()->role !== 'admin') {
+            abort(403, 'Hanya admin yang bisa menambah barang!');
         }
 
-    return view('barang.create');
+        return view('barang.create');
     }
-
 
     public function store(Request $request)
     {
+        // validasi tetap dibolehkan karena bisa dipakai admin
         $request->validate([
             'nama_barang' => 'required',
             'stok' => 'required|integer|min:0',
@@ -46,12 +48,20 @@ class BarangController extends Controller
 
     public function edit($id)
     {
+        if (auth()->user()->role !== 'admin') {
+            abort(403, 'Hanya admin yang bisa mengedit barang!');
+        }
+
         $barang = Barang::findOrFail($id);
         return view('barang.edit', compact('barang'));
     }
 
     public function update(Request $request, $id)
     {
+        if (auth()->user()->role !== 'admin') {
+            abort(403, 'Hanya admin yang bisa memperbarui barang!');
+        }
+
         $barang = Barang::findOrFail($id);
         $barang->update([
             'nama_barang' => $request->nama_barang,
@@ -64,12 +74,11 @@ class BarangController extends Controller
 
     public function destroy($id)
     {
-    if (auth()->user()->role !== 'admin') {
-        abort(403, 'Hanya admin yang bisa menghapus barang!');
+        if (auth()->user()->role !== 'admin') {
+            abort(403, 'Hanya admin yang bisa menghapus barang!');
         }
 
-    Barang::destroy($id);
-    return redirect('/barang')->with('success', 'Barang berhasil dihapus!');
+        Barang::destroy($id);
+        return redirect('/barang')->with('success', 'Barang berhasil dihapus!');
     }
-
 }

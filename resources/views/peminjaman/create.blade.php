@@ -18,8 +18,8 @@
         <label>Tanggal Pinjam:</label><br>
         <input type="date" name="tanggal_pinjam"><br><br>
 
-        <label>Catatan (terenkripsi):</label><br>
-        <textarea name="catatan_terenkripsi"></textarea><br><br>
+        <label>Catatan:</label><br>
+        <textarea name="catatan"></textarea><br><br>
 
         <button type="submit">Simpan</button>
     </form>
