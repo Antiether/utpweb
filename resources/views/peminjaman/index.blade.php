@@ -23,6 +23,7 @@
             <th>Catatan</th>
             <th>Aksi</th>
         </tr>
+
         @foreach ($peminjamen as $p)
         <tr>
             <td>{{ $p->id }}</td>
@@ -31,14 +32,20 @@
             <td>{{ $p->tanggal_pinjam }}</td>
             <td>{{ $p->tanggal_kembali ?? '-' }}</td>
             <td>{{ $p->status }}</td>
-            <td>{{ $p->catatan_terenkripsi }}</td>
+            <td>{{ $p->catatan_terenkripsi ?: '-' }}</td>
             <td>
-                <a href="{{ route('peminjaman.edit', $p->id) }}">Edit</a> |
-                <form action="{{ route('peminjaman.destroy', $p->id) }}" method="POST" style="display:inline;">
-                    @csrf
-                    @method('DELETE')
-                    <button type="submit" onclick="return confirm('Yakin hapus?')">Hapus</button>
-                </form>
+                @if($user->role === 'admin')
+                    <a href="{{ route('peminjaman.edit', $p->id) }}">Edit</a> |
+                    <form action="{{ route('peminjaman.destroy', $p->id) }}" method="POST" style="display:inline;">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" onclick="return confirm('Yakin hapus?')">Hapus</button>
+                    </form>
+                @elseif($user->role === 'user' && $p->status === 'dipinjam')
+                    <a href="{{ route('peminjaman.formPengembalian', $p->id) }}">Kembalikan</a>
+                @else
+                    -
+                @endif
             </td>
         </tr>
         @endforeach

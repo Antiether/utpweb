@@ -14,13 +14,13 @@ return new class extends Migration
     Schema::create('peminjamen', function (Blueprint $table) {
         $table->id();
         $table->foreignId('user_id')->constrained()->onDelete('cascade');
-        $table->foreignId('barang_id')->constrained()->onDelete('cascade');
+        $table->foreignId('barang_id')->constrained('barangs')->onDelete('cascade');
         $table->date('tanggal_pinjam');
         $table->date('tanggal_kembali')->nullable();
         $table->string('status')->default('dipinjam');
-        $table->text('catatan_terenkripsi')->nullable(); // data terenkripsi
+        $table->text('catatan_terenkripsi')->nullable();
         $table->timestamps();
-        });
+    });
     }
 
 

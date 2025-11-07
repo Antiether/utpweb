@@ -28,8 +28,8 @@
             <option value="dikembalikan" {{ $peminjaman->status == 'dikembalikan' ? 'selected' : '' }}>Dikembalikan</option>
         </select><br><br>
 
-        <label>Catatan (terenkripsi):</label><br>
-        <textarea name="catatan_terenkripsi">{{ $peminjaman->catatan_terenkripsi }}</textarea><br><br>
+        <label>Catatan:</label><br>
+        <textarea name="catatan">{{ $peminjaman->catatan_terenkripsi }}</textarea><br><br>
 
         <button type="submit">Update</button>
     </form>

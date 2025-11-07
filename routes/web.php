@@ -4,7 +4,14 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BarangController;
 use App\Http\Controllers\PeminjamanController;
+use Illuminate\Support\Facades\Auth;
 
+Route::get('/', function () {
+    if (Auth::check()) {
+        return redirect('/dashboard');
+    }
+    return redirect('/login');
+});
 
 Route::get('/register', [AuthController::class, 'showRegister'])->name('register');
 Route::post('/register', [AuthController::class, 'register']);
@@ -14,19 +21,24 @@ Route::post('/login', [AuthController::class, 'login']);
 
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
-Route::resource('barang', BarangController::class)->middleware('auth');
-
-Route::resource('peminjaman', PeminjamanController::class)->middleware('auth');
-
-Route::get('/dashboard', function() {
+Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware('auth');
 
-Route::middleware('auth')->group(function () {
-    Route::get('/dashboard', function () {
-        return view('dashboard');
-    });
+// Semua user login bisa melihat daftar barang
+Route::middleware(['auth'])->group(function () {
+    Route::get('/barang', [BarangController::class, 'index'])->name('barang.index');
+});
 
-    Route::resource('/barang', BarangController::class);
-    Route::resource('/peminjaman', PeminjamanController::class);
+// Admin routes
+Route::middleware(['auth', 'role:admin'])->group(function () {
+    Route::resource('barang', BarangController::class)->except(['index']);
+    Route::resource('peminjaman', PeminjamanController::class)->only(['index', 'update', 'destroy']);
+});
+
+// User routes
+Route::middleware(['auth', 'role:user'])->group(function () {
+    Route::resource('peminjaman', PeminjamanController::class)->only(['index', 'create', 'store', 'edit', 'update']);
+    Route::get('/peminjaman/{id}/kembalikan', [PeminjamanController::class, 'formPengembalian'])->name('peminjaman.formPengembalian');
+    Route::put('/peminjaman/{id}/kembalikan', [PeminjamanController::class, 'prosesPengembalian'])->name('peminjaman.prosesPengembalian');
 });

@@ -7,12 +7,17 @@
     <h2>Selamat datang, {{ auth()->user()->name }}!</h2>
     <p>Role kamu: <strong>{{ auth()->user()->role }}</strong></p>
 
+    <nav>
+        <a href="{{ url('/barang') }}">Barang</a> |
+        <a href="{{ url('/peminjaman') }}">Peminjaman</a> |
+        <form action="{{ route('logout') }}" method="POST" style="display:inline;">
+            @csrf
+            <button type="submit">Logout</button>
+        </form>
+    </nav>
 
-    <p>Ini halaman dashboard. Kamu berhasil login</p>
+    <hr>
 
-    <form action="/logout" method="POST">
-        @csrf
-        <button type="submit">Logout</button>
-    </form>
+    <p>Ini halaman dashboard utama.</p>
 </body>
 </html>
