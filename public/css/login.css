@@ -1,0 +1,144 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    background-color: #f6f8fc;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* --- Layout utama --- */
+.container {
+    display: flex;
+    flex: 1;
+    width: 80%;
+    max-width: 1000px;
+    margin: 40px auto;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+/* --- Bagian kiri (gambar + teks) --- */
+.left-side {
+    flex: 1;
+    background-image: url('../images/login sipbar.jpg');
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding-top: 80px;
+}
+
+.left-side h1 {
+    color: white;
+    font-size: 42px;
+    text-shadow: 2px 2px 8px rgba(0,0,0,0.5);
+}
+
+/* --- Bagian kanan (form login/register) --- */
+.right-side {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px;
+}
+
+.login-card {
+    width: 100%;
+    max-width: 320px;
+    text-align: center;
+}
+
+.login-card h2 {
+    font-size: 26px;
+    color: #4682B4;
+    margin-bottom: 25px;
+}
+
+.login-card input {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    outline: none;
+    transition: 0.3s;
+}
+
+.login-card input:focus {
+    border-color: #4682B4;
+    box-shadow: 0 0 5px rgba(70, 130, 180, 0.5);
+}
+
+.login-card button {
+    width: 100%;
+    padding: 12px;
+    background-color: #4682B4;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background 0.3s;
+}
+
+.login-card button:hover {
+    background-color: #3b6c97;
+}
+
+.register-text {
+    margin-top: 15px;
+    font-size: 14px;
+}
+
+.register-text a {
+    color: #4682B4;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.register-text a:hover {
+    text-decoration: underline;
+}
+
+/* --- Error Message --- */
+.error-messages {
+    background: rgba(255, 99, 71, 0.1);
+    border: 1px solid tomato;
+    color: tomato;
+    padding: 10px;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    text-align: left;
+    font-size: 14px;
+}
+
+/* --- Footer --- */
+footer {
+    text-align: center;
+    padding: 15px 0;
+    background-color: #4682B4;
+    color: white;
+    font-size: 14px;
+}
+
+/* --- Error Message --- */
+.error-messages {
+    background: rgba(255, 99, 71, 0.1);
+    border: 1px solid tomato;
+    color: tomato;
+    padding: 10px;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    text-align: left;
+    font-size: 14px;
+}
